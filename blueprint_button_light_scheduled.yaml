@@ -20,28 +20,28 @@ blueprint:
 
 trigger:
 
-  - trigger: device
+  - platform: device
     device_id: !input button
     domain: homekit_controller
     type: button1
     subtype: single_press
     id: "on"
 
-  - trigger: device
+  - platform: device
     device_id: !input button
     domain: homekit_controller
     type: button1
     subtype: double_press
     id: "force_normal"
 
-  - trigger: device
+  - platform: device
     device_id: !input button
     domain: homekit_controller
     type: button2
     subtype: single_press
     id: "off"
 
-  - trigger: device
+  - platform: device
     device_id: !input button
     domain: homekit_controller
     type: button2
@@ -107,8 +107,11 @@ action:
                     target:
                       entity_id: !input target_light
                     data:
-                      brightness_pct: 10
-                      color_temp_kelvin: 2000
+                      brightness_pct: 1
+                      rgb_color:
+                        - 255
+                        - 106
+                        - 0
 
               - conditions:
                   - condition: state
@@ -120,7 +123,7 @@ action:
                     target:
                       entity_id: !input target_light
                     data:
-                      brightness_pct: 60
+                      brightness_pct: 40
                       color_temp_kelvin: 3000
 
             default:
