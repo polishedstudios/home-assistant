@@ -30,14 +30,14 @@ trigger:
   - platform: state
     entity_id: !input motion_sensor
     to: "on"
-    id: motion_on
+    id: "motion_on"
 
   - platform: state
     entity_id: !input motion_sensor
     to: "off"
     for:
       seconds: !input off_delay
-    id: motion_off
+    id: "motion_off"
 
 action:
 
