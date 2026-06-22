@@ -25,28 +25,28 @@ trigger:
     domain: homekit_controller
     type: button1
     subtype: single_press
-    id: on
+    id: "on"
 
   - trigger: device
     device_id: !input button
     domain: homekit_controller
     type: button1
     subtype: double_press
-    id: force_normal
+    id: "force_normal"
 
   - trigger: device
     device_id: !input button
     domain: homekit_controller
     type: button2
     subtype: single_press
-    id: off
+    id: "off"
 
   - trigger: device
     device_id: !input button
     domain: homekit_controller
     type: button2
     subtype: double_press
-    id: force_sleep
+    id: "force_sleep"
 
 action:
 
