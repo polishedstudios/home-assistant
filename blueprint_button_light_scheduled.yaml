@@ -1,0 +1,134 @@
+blueprint:
+  name: Button Light Schedule
+  description: >
+    Single press follows schedules.
+    Double press overrides schedules.
+
+  domain: automation
+
+  input:
+    button:
+      name: Button Device
+      selector:
+        device: {}
+
+    target_light:
+      name: Light
+      selector:
+        entity:
+          domain: light
+
+trigger:
+
+  - trigger: device
+    device_id: !input button
+    domain: homekit_controller
+    type: button1
+    subtype: single_press
+    id: on
+
+  - trigger: device
+    device_id: !input button
+    domain: homekit_controller
+    type: button1
+    subtype: double_press
+    id: force_normal
+
+  - trigger: device
+    device_id: !input button
+    domain: homekit_controller
+    type: button2
+    subtype: single_press
+    id: off
+
+  - trigger: device
+    device_id: !input button
+    domain: homekit_controller
+    type: button2
+    subtype: double_press
+    id: force_sleep
+
+action:
+
+  - choose:
+
+      # OFF
+      - conditions:
+          - condition: trigger
+            id: off
+
+        sequence:
+          - action: light.turn_off
+            target:
+              entity_id: !input target_light
+
+      # FORCE NORMAL
+      - conditions:
+          - condition: trigger
+            id: force_normal
+
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: !input target_light
+            data:
+              brightness_pct: 80
+              color_temp_kelvin: 3152
+
+      # FORCE SLEEP
+      - conditions:
+          - condition: trigger
+            id: force_sleep
+
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: !input target_light
+            data:
+              brightness_pct: 10
+              color_temp_kelvin: 2000
+
+      # BUTTON 1 SINGLE → schedule
+      - conditions:
+          - condition: trigger
+            id: on
+
+        sequence:
+
+          - choose:
+
+              - conditions:
+                  - condition: state
+                    entity_id: schedule.lights_sleep_mode
+                    state: "on"
+
+                sequence:
+                  - action: light.turn_on
+                    target:
+                      entity_id: !input target_light
+                    data:
+                      brightness_pct: 10
+                      color_temp_kelvin: 2000
+
+              - conditions:
+                  - condition: state
+                    entity_id: schedule.lights_dim_mode
+                    state: "on"
+
+                sequence:
+                  - action: light.turn_on
+                    target:
+                      entity_id: !input target_light
+                    data:
+                      brightness_pct: 60
+                      color_temp_kelvin: 3000
+
+            default:
+              - action: light.turn_on
+                target:
+                  entity_id: !input target_light
+                data:
+                  brightness_pct: 80
+                  color_temp_kelvin: 3152
+
+mode: single
