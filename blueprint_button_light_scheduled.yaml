@@ -25,7 +25,7 @@ trigger:
     domain: homekit_controller
     type: button1
     subtype: single_press
-    id: "on"
+    id: "button_on"
 
   - platform: device
     device_id: !input button
@@ -39,7 +39,7 @@ trigger:
     domain: homekit_controller
     type: button2
     subtype: single_press
-    id: "off"
+    id: "button_off"
 
   - platform: device
     device_id: !input button
@@ -55,7 +55,7 @@ action:
       # OFF
       - conditions:
           - condition: trigger
-            id: off
+            id: button_off
 
         sequence:
           - service: light.turn_off
@@ -91,7 +91,7 @@ action:
       # BUTTON 1 SINGLE → schedule
       - conditions:
           - condition: trigger
-            id: on
+            id: button_on
 
         sequence:
 
