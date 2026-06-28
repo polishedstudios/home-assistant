@@ -72,7 +72,7 @@ action:
             target:
               entity_id: !input target_light
             data:
-              brightness_pct: 80
+              brightness_pct: 100
               color_temp_kelvin: 3152
 
       # FORCE SLEEP
@@ -85,8 +85,9 @@ action:
             target:
               entity_id: !input target_light
             data:
-              brightness_pct: 10
-              color_temp_kelvin: 2000
+              brightness_pct: 1
+              rgb_color:
+                - [255, 85, 0]
 
       # BUTTON 1 SINGLE → schedule
       - conditions:
@@ -109,9 +110,7 @@ action:
                     data:
                       brightness_pct: 1
                       rgb_color:
-                        - 255
-                        - 106
-                        - 0
+                        - [255, 85, 0]
 
               - conditions:
                   - condition: state
@@ -123,7 +122,7 @@ action:
                     target:
                       entity_id: !input target_light
                     data:
-                      brightness_pct: 40
+                      brightness_pct: 20
                       color_temp_kelvin: 3000
 
             default:
@@ -131,7 +130,7 @@ action:
                 target:
                   entity_id: !input target_light
                 data:
-                  brightness_pct: 80
+                  brightness_pct: 70
                   color_temp_kelvin: 3152
 
 mode: single
