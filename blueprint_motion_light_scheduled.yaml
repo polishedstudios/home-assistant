@@ -73,7 +73,9 @@ action:
                     data:
                       brightness_pct: 1
                       rgb_color:
-                        - [255, 85, 0]
+                        - 255
+                        - 85
+                        - 0
 
               # Dim
               - conditions:
